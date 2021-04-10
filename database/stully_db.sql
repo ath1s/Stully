@@ -1,10 +1,10 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2021-04-09 07:24:58.774
+-- Last modification date: 2021-04-10 12:29:45.522
 
 -- tables
 -- Table: account
 CREATE TABLE account (
-    account_id int NOT NULL,
+    account_id int NOT NULL AUTO_INCREMENT,
     username varchar(15) NOT NULL,
     password_hash varchar(255) NOT NULL,
     email varchar(50) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE account (
 
 -- Table: comments
 CREATE TABLE comments (
-    comment_id int NOT NULL,
+    comment_id int NOT NULL AUTO_INCREMENT,
     comment text NOT NULL,
     punten int NOT NULL,
     post_id int NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE comments (
 
 -- Table: posts
 CREATE TABLE posts (
-    post_id int NOT NULL,
+    post_id int NOT NULL AUTO_INCREMENT,
     code text NOT NULL,
     account_id int NOT NULL,
     CONSTRAINT posts_pk PRIMARY KEY (post_id)
