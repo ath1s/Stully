@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+  mysql:
+    platform: linux/x86_64
+    image: mysql:8.0
+    container_name: chatapp-db
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./mysql-dump:/docker-entrypoint-initdb.d
+      - ./db:/var/lib/mysql:rw
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+  website:
+    container_name: chatapp-website
+    build: .
+    volumes:
+      - ../:/var/www/html
+    ports:
+      - "80:80"
+    links:
+      - mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+
