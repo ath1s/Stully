@@ -1,11 +1,12 @@
 <?php
-require_once 'classes/Dbconnectie.php';
+require_once 'classes/Registration.php';
 
-//Database connectie testen
-$mysqli = new Dbconnectie();
-if ($mysqli->connect_error) {
-    echo "Not connected, error: " . $mysqli->connect_error;
-}
-else {
-    echo "Connected.";
-}
+//Registratie testen
+
+$username = "jan ";
+$password1 = "wachtwoord";
+$password2 = "wachtwoord";
+$email = "jAN@jaNsen.nl ";
+
+$mysqli = new Registration();
+$mysqli->register($username, $password1, $password2, $email);
