@@ -4,7 +4,7 @@ class DB {
     private $host = "mysql";
     private $username = "root";
     private $password = "root";
-    private $database = "chatapp";
+    private $database = "stully";
 
     public function __construct() {
         $this->mysqli = new mysqli($this->host, $this->username, $this->password, $this->database);
