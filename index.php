@@ -1,20 +1,26 @@
 <?php
 require_once 'classes/Account.php';
 
-//Registratie testen
+//Account testen
 
-$username = "janss";
+$username = "pan";
 $password1 = "wachtwoord";
 $password2 = "wachtwoord";
-$email = "jANs@jaNssssen.nl ";
+$email = "sAN@jaNsen.nl ";
 
 $newpwd = "wechtwoord";
 
 $mysqli = new Account();
 $mysqli->register($username, $password1, $password2, $email);
-if ($mysqli->inloggen($username, $newpwd)) {
-    echo "logged in";
-}
-//if ($mysqli->resetPassword($username, $password1, $newpwd, $newpwd)) {
-//    echo "wachtwoord veranderd";
+//if ($mysqli->inloggen($username, $password1)) {
+//    echo "logged in";
 //}
+
+if ($available = $mysqli->changeStatus($username, 'available')) {
+    echo "<br>available users: ";
+    foreach ($available as $user) {
+        echo $user . "<br>";
+    }
+}
+
+$mysqli->logout($username);
