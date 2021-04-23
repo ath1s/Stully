@@ -1,5 +1,5 @@
 .idea
 .DS_Store
-server/db/*
-server/mysql-dump/*
+server/db/
+server/mysql-dump/
 node_modules
