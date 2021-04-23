@@ -64,6 +64,7 @@ class Account
 
     public function inloggen($username, $password)
     {
+        $username = trim($this->mysqli->real_escape_string($username));
         $stmt = $this->mysqli->prepare("SELECT password_hash FROM account WHERE username = ?");
         $stmt->bind_param("s", $username);
         if ($stmt->execute()) {
@@ -79,8 +80,23 @@ class Account
         }
     }
 
-    public function resetPassword($username)
+    public function resetPassword($username, $oldpwd, $newpwd1, $newpwd2)
     {
-
+        if ($newpwd1 === $newpwd2) {
+            if ($this->inloggen($username, $oldpwd)) {
+                $newhash = password_hash($newpwd1, PASSWORD_DEFAULT);
+                $stmt = $this->mysqli->prepare("UPDATE account SET password_hash = ? WHERE username = ?");
+                $stmt->bind_param("ss", $newhash, $username);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return $this->mysqli->error;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }
