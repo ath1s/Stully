@@ -1,12 +1,12 @@
 <?php
-require_once 'classes/Registration.php';
+require_once 'classes/Account.php';
 
 //Registratie testen
 
 $username = "jan ";
 $password1 = "wachtwoord";
 $password2 = "wachtwoord";
-$email = "jAN@jaNsen.nl ";
+$email = "jAN@jaNsssen.nl ";
 
-$mysqli = new Registration();
+$mysqli = new Account();
 $mysqli->register($username, $password1, $password2, $email);
