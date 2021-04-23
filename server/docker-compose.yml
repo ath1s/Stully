@@ -14,7 +14,7 @@ services:
     ports:
       - "3306:3306"
   website:
-    container_name: chatapp-website
+    container_name: stully_db
     build: .
     volumes:
       - ../:/var/www/html
