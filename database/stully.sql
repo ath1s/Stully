@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Apr 23, 2021 at 10:09 AM
--- Server version: 8.0.23-0ubuntu0.20.04.1
--- PHP Version: 7.4.3
+-- Host: mysql:3306
+-- Generation Time: Apr 23, 2021 at 10:31 AM
+-- Server version: 8.0.23
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -62,7 +61,7 @@ CREATE TABLE `comments` (
 CREATE TABLE `posts` (
   `post_id` int NOT NULL,
   `account_id` int NOT NULL,
-  `title` varchar(25) NOT NULL,
+  `title` varchar(150) NOT NULL,
   `code` text NOT NULL,
   `subtext` text NOT NULL,
   `timestamp` timestamp NOT NULL
