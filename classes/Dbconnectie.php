@@ -6,7 +6,7 @@ class Dbconnectie
     private $host = "mysql";
     private $username = "root";
     private $password = "root";
-    private $dbname = "stully";
+    private $dbname = "Stully_DB";
 
     public function __construct() {
         $this->mysqli = new mysqli($this->host, $this->username, $this->password, $this->dbname);
