@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/ath1s/Stully/issues"
   },
-  "homepage": "https://github.com/ath1s/Stully#readme"
+  "homepage": "https://github.com/ath1s/Stully#readme",
+  "dependencies": {
+    "websocket": "^1.0.34"
+  }
 }

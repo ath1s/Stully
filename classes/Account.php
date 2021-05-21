@@ -106,21 +106,12 @@ class Account
     }
 
     public function changeStatus($username, $status) {
-        if ($status == "offline" || $status == "online" || $status == "in call") {
+        if ($status == "offline" || $status == "online" || $status == "in call" || $status == "available") {
             if ($this->mysqli->query("UPDATE account SET status = '$status' WHERE username = '$username';")) {
                 return true;
             } else {
                 return false;
             }
-        } elseif ($status == "available") {
-            if ($this->mysqli->query("UPDATE account SET status = '$status' WHERE username = '$username';")) {
-                $match = $this->randomMatch($username);
-                return $match;
-            } else {
-                return $this->mysqli->error;
-            }
-        } else {
-            return false;
         }
     }
 
@@ -136,6 +127,8 @@ class Account
             while ($row = $result->fetch_assoc()) {
                 $users[] = $row["username"];
             }
+        } else {
+            $users[] = "no-user";
         }
         return $users;
     }

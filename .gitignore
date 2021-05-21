@@ -3,3 +3,5 @@
 server/db/
 server/db/*
 server/mysql-dump/
+node_modules/
+node_modules/*
