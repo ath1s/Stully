@@ -17,5 +17,6 @@
             echo "<h2 style='color:red;'>" . $_GET["error"] . "</h2>";
         ?>
     </form>
+    <p>heb je nog geen account <a href="pages/registration.php">account registeren</a></p>
 </body>
 </html>
