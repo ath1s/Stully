@@ -114,15 +114,20 @@ class Account
             }
         } elseif ($status == "available") {
             if ($this->mysqli->query("UPDATE account SET status = '$status' WHERE username = '$username';")) {
-                $available = $this->statusCheck();
-                $array = array_diff($available, array($username));
-                return $array;
+                $match = $this->randomMatch($username);
+                return $match;
             } else {
                 return $this->mysqli->error;
             }
         } else {
             return false;
         }
+    }
+
+    public function randomMatch($username) {
+            $available = $this->statusCheck();
+            $array = array_diff($available, array($username));
+            return $array[array_rand($array)];
     }
 
     public function statusCheck() {
@@ -133,5 +138,15 @@ class Account
             }
         }
         return $users;
+    }
+
+    public function getStatus($username) {
+        $stmt = $this->mysqli->prepare("SELECT status FROM account WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            return $row['status'];
+        }
     }
 }
