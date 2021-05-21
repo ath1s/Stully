@@ -17,7 +17,7 @@ function handleSignallingData(data) {
 let username
 function sendUsername() {
 
-    username = document.getElementById("username-input").value
+    username = document.getElementById("roomname").innerText;
     sendData({
         type: "store_user"
     })

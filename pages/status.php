@@ -28,9 +28,9 @@ session_start();
         if ($status->getStatus($_SESSION["username"]) == "available") {
             $_SESSION["available"] == true;
             if ($status->statusCheck()[0] == 'no-user' || $status->statusCheck()[0] == $_SESSION["username"]) {
-                echo "<a href='../coffeecall/sender/call.html'>Maak call</a>";
+                echo "<a href='../coffeecall/sender/call.php?id=" . $_SESSION["username"] ."'>Maak call</a>";
             } else {
-                echo "<a href='../coffeecall/receiver/call.html'>Maak call</a>";
+                echo "<a href='../coffeecall/receiver/call.php?id=" . $_SESSION["username"] ."'>Maak call</a>";
             }
         } else {
             echo "Verander je status naar 'available' om een call te maken!";
