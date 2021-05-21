@@ -22,7 +22,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
 </head>
 <body>
         <?php
-            require_once('../classes/Posts.php');
+            require_once('../classes/Post.php');
 
             $post = new Post();
             if(count($post->showPost(htmlspecialchars($_GET["id"]))) > 0){
@@ -35,8 +35,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                 echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["timestamp"] . "</td></tr>";
                 echo "</table><br>";
             }
-
-            if(count($post->showComments(htmlspecialchars($_GET["id"]))) > 0 ){
+            if (!empty($post->showComments(htmlspecialchars($_GET["id"])))){
                 for ($i = 0; $i < count($post->showComments(htmlspecialchars($_GET["id"]))); $i++) {
                     $stmt1 = $mysql->query("SELECT username FROM account WHERE account_id =" . $post->showComments(htmlspecialchars($_GET['id']))[$i]['account_id'] . ";");
                     $row = $stmt1->fetch_array(MYSQLI_ASSOC);
@@ -53,6 +52,8 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                     </form></tr></td>";
                     echo "</table><br>";
                 }
+            } else {
+                echo "Maak de eerste comment!";
             }
         ?>
         <form action="comment.php" method="post">

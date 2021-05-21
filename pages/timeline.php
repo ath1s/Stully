@@ -13,8 +13,24 @@ if($_SESSION["loggedin"] != true){
     <title>Timeline</title>
 </head>
 <body>
+<form method="post" action="">
+    <input type="text" placeholder="title" name="title">
+    <input type="text" placeholder="code" name="code">
+    <input type="text" placeholder="evauluate" name="subtext">
+    <input type="submit" name="upload">
+</form>
         <?php
-            require_once('../classes/Timeline.php');
+            require_once ('../classes/Timeline.php');
+            require_once('../classes/Post.php');
+
+            $post = new Post();
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['upload'] == 'Submit') {
+                $info = $post->htmlSpecialCharArray($_POST);
+                $post->createPost($_SESSION['username'], $info);
+            }
+
+
 
             $timeline = new Timeline();
             
