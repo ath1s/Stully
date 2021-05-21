@@ -7,7 +7,7 @@
     <title>Stully - Registratie</title>
 </head>
 <body>
-    <form method="POST" action="php/verify_registration.php">
+    <form method="POST" action="../php/verify_registration.php">
         <h1>Registratie</h1>
         <input type="text" placeholder="Gebruikersnaam" name="username">
         <input type="password" placeholder="Wachtwoord" name="password1">
