@@ -1,3 +1,9 @@
+<?
+session_start();
+if($_SESSION["loggedin"] != true){
+    header("Location:../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,6 +1,8 @@
 <?php
 session_start();
-$_SESSION["user_id"] = 1;
+if($_SESSION["loggedin"] != true){
+    header("Location:../index.php");
+}
 require_once('../classes/Dbconnectie.php');
 $conn = new Dbconnectie();
 $mysql = $conn->getConnection();
@@ -34,11 +36,9 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                 echo "</table><br>";
             }
 
-            
-            //$stmt1 = $mysql->query("SELECT username FROM account WHERE account_id = ");
             if(count($post->showComments(htmlspecialchars($_GET["id"]))) > 0 ){
                 for ($i = 0; $i < count($post->showComments(htmlspecialchars($_GET["id"]))); $i++) {
-                    $stmt1 = $mysql->query("SELECT username FROM account WHERE account_id = 1;");
+                    $stmt1 = $mysql->query("SELECT username FROM account WHERE account_id =" . $post->showComments(htmlspecialchars($_GET['id']))[$i]['account_id'] . ";");
                     $row = $stmt1->fetch_array(MYSQLI_ASSOC);
                     echo "<table style='border:1px solid black'>";
                     echo "<tr><td style='background-color:lightblue;'>" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["comment"] . "</td></tr>";
@@ -57,7 +57,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
         ?>
         <form action="comment.php" method="post">
         <input type="text" name="comment" placeholder="zet hier uw comment">
-        <input type="hidden" name="id" value="<?echo $_SESSION["user_id"];?>">
+        <input type="hidden" name="username" value="<?echo $_SESSION["username"];?>">
         <input type="hidden" name="post_id" value="<?echo htmlspecialchars($_GET["id"]);?>">
         <input type="submit" value="comment">
         </form>

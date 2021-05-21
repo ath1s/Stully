@@ -41,10 +41,15 @@ class Post
         }
     }
 
-    public function addComment($comment, $account_id, $id) {
-        $stmt = $this->mysqli->prepare("INSERT INTO comments (`comment_id`, `comment`, `punten`, `post_id`,`account_id`) VALUES (NULL, ?, 0, ?, ?)");
-        $stmt->bind_param("sii", $comment, $account_id, $id);
-        if($stmt->execute()){
+    public function addComment($comment, $username, $id) {
+        $stmt = $this->mysqli->prepare("SELECT account_id FROM account WHERE username = ?;");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $stmt1 = $this->mysqli->prepare("INSERT INTO comments (`comment_id`, `comment`, `punten`, `post_id`,`account_id`) VALUES (NULL, ?, 0, ?, ?)");
+        $stmt1->bind_param("sii", $comment, $id, $row["account_id"]);
+        if($stmt1->execute()){
             return true;
         }else{
             return $this->mysqli->error;
