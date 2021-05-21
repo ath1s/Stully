@@ -18,6 +18,7 @@
                 echo "<tr><td>" . $timeline->getPosts()[$i]["code"] . "</td></tr>";
                 echo "<tr><td style='background-color:lightblue;'>" . $timeline->getPosts()[$i]["subtext"] . "</td></tr>";
                 echo "<tr><td>" . $timeline->getPosts()[$i]["timestamp"] . "</td></tr>";
+                echo "<tr><td style='background-color:lightblue;'><a href='post.php?id=" . $timeline->getPosts()[$i]["post_id"] . "'>antwoord</a></td></tr>";
                 echo "</table><br>";
             ;}
         ?>
