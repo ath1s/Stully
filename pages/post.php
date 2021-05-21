@@ -23,33 +23,36 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
             require_once('../classes/Posts.php');
 
             $post = new Post();
-            $show = $post->showPost(htmlspecialchars($_GET["id"]));
-            echo "<table style='border:1px solid black'>";
-            echo "<tr><th style='font-size:30px;background-color:lightblue;'>" . $show[0]["title"] . "</th></tr>";
-            echo "<tr><td style='font-size:15px;'>" . $row["username"] . "</td></tr>";
-            echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["code"] . "</td></tr>";
-            echo "<tr><td style='font-size:20px;'>" . $show[0]["subtext"] . "</td></tr>";
-            echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["timestamp"] . "</td></tr>";
-            echo "</table><br>";
+            if(count($post->showPost(htmlspecialchars($_GET["id"]))) > 0){
+                $show = $post->showPost(htmlspecialchars($_GET["id"]));
+                echo "<table style='border:1px solid black'>";
+                echo "<tr><th style='font-size:30px;background-color:lightblue;'>" . $show[0]["title"] . "</th></tr>";
+                echo "<tr><td style='font-size:15px;'>" . $row["username"] . "</td></tr>";
+                echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["code"] . "</td></tr>";
+                echo "<tr><td style='font-size:20px;'>" . $show[0]["subtext"] . "</td></tr>";
+                echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["timestamp"] . "</td></tr>";
+                echo "</table><br>";
+            }
 
             
             //$stmt1 = $mysql->query("SELECT username FROM account WHERE account_id = ");
-
-            for ($i = 0; $i < count($post->showComments(htmlspecialchars($_GET["id"]))); $i++) {
-                $stmt1 = $mysql->query("SELECT username FROM account WHERE account_id = 1;");
-                $row = $stmt1->fetch_array(MYSQLI_ASSOC);
-                echo "<table style='border:1px solid black'>";
-                echo "<tr><td style='background-color:lightblue;'>" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["comment"] . "</td></tr>";
-                echo "<tr><td>" . $row["username"] . "</td></tr>";
-                echo "<tr><td style='background-color:lightblue;'>" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["punten"] . "</td></tr>";
-                echo"<tr><td>
-                <form action='../classes/vote.php' method='post'>
-                <input type='hidden' name='post_id' value='" . $_GET["id"] . "'>
-                <input type='hidden' name='id' value='" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["comment_id"] . "'>
-                <input type='hidden' name='vote' value='upvote'>
-                <input type='submit' value='upvote'>
-                </form></tr></td>";
-                echo "</table><br>";
+            if(count($post->showComments(htmlspecialchars($_GET["id"]))) > 0 ){
+                for ($i = 0; $i < count($post->showComments(htmlspecialchars($_GET["id"]))); $i++) {
+                    $stmt1 = $mysql->query("SELECT username FROM account WHERE account_id = 1;");
+                    $row = $stmt1->fetch_array(MYSQLI_ASSOC);
+                    echo "<table style='border:1px solid black'>";
+                    echo "<tr><td style='background-color:lightblue;'>" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["comment"] . "</td></tr>";
+                    echo "<tr><td>" . $row["username"] . "</td></tr>";
+                    echo "<tr><td style='background-color:lightblue;'>" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["punten"] . "</td></tr>";
+                    echo"<tr><td>
+                    <form action='../classes/vote.php' method='post'>
+                    <input type='hidden' name='post_id' value='" . $_GET["id"] . "'>
+                    <input type='hidden' name='id' value='" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["comment_id"] . "'>
+                    <input type='hidden' name='vote' value='upvote'>
+                    <input type='submit' value='upvote'>
+                    </form></tr></td>";
+                    echo "</table><br>";
+                }
             }
         ?>
         <form action="comment.php" method="post">
