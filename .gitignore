@@ -1,10 +1,5 @@
 .idea
 .DS_Store
-<<<<<<< HEAD
-server/db/*
-mysql-dump/*
-=======
 server/db/
+server/db/*
 server/mysql-dump/
->>>>>>> f-timeline
-node_modules
