@@ -1,7 +1,7 @@
 <?php
 require_once 'Dbconnectie.php';
 
-class Login
+class Registration
 {
     private $mysqli;
 
@@ -11,7 +11,7 @@ class Login
         $this->mysqli = $con->getConnection();
     }
 
-    public function inloggen($username, $password)
+    public function register($username, $password)
     {
         $stmt = $this->mysqli->prepare("SELECT password_hash FROM account WHERE username = ?");
         $stmt->bind_param("s", $username);

@@ -2,8 +2,9 @@ version: '2'
 
 services:
   mysql:
+    platform: linux/x86_64
     image: mysql:8.0
-    container_name: stully-db
+    container_name: chatapp-db
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - ./mysql-dump:/docker-entrypoint-initdb.d
@@ -14,7 +15,7 @@ services:
     ports:
       - "3306:3306"
   website:
-    container_name: stully-website
+    container_name: chatapp-website
     build: .
     volumes:
       - ../:/var/www/html
