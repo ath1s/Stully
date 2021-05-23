@@ -87,7 +87,24 @@ class Post
         return $accountid['account_id'];
     }
 
-    public function updatePoints($username, $points) {
+    public function upvote($comment_id) {
+        $stmt = $this->mysqli->prepare("UPDATE comments SET punten = punten + 1 WHERE comment_id = ?");
+        $stmt->bind_param("i", $comment_id);
+        if($stmt->execute()){
+            $stmt = $this->mysqli->prepare("SELECT username FROM account WHERE account_id = (SELECT account_id FROM comments WHERE comment_id = ?)");
+            $stmt->bind_param("i", $comment_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $commentuser = $result->fetch_array(MYSQLI_ASSOC)['username'];
+
+            $this->updatePoints($commentuser, 1);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private function updatePoints($username, $points) {
         $stmt = $this->mysqli->prepare("SELECT punten FROM account WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();

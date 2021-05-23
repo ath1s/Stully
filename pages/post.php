@@ -44,7 +44,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                     echo "<tr><td>" . $row["username"] . "</td></tr>";
                     echo "<tr><td style='background-color:lightblue;'>" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["punten"] . "</td></tr>";
                     echo"<tr><td>
-                    <form action='../classes/vote.php' method='post'>
+                    <form action='../php/vote.php' method='post'>
                     <input type='hidden' name='post_id' value='" . $_GET["id"] . "'>
                     <input type='hidden' name='id' value='" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["comment_id"] . "'>
                     <input type='hidden' name='vote' value='upvote'>
