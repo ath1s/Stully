@@ -45,7 +45,7 @@ class Post
                 $posts[] = $row;
             }
             return $posts;
-        }else{
+        } else {
             return $this->mysqli->error;
         }
     }
@@ -60,7 +60,7 @@ class Post
                 $comments[] = $row;
             }
             return $comments;
-        }else{
+        } else {
             return $this->mysqli->error;
         }
     }
@@ -73,7 +73,7 @@ class Post
 //            Moet nog kijken hoeveel punten je krijgt
             $this->updatePoints($username, 1);
             return true;
-        }else{
+        } else {
             return $this->mysqli->error;
         }
     }
@@ -97,26 +97,20 @@ class Post
             $result = $stmt->get_result();
             $commentuser = $result->fetch_array(MYSQLI_ASSOC)['username'];
 
+//            Moet nog kijken hoeveel punten je krijgt
             $this->updatePoints($commentuser, 1);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     private function updatePoints($username, $points) {
-        $stmt = $this->mysqli->prepare("SELECT punten FROM account WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $currentpoints = $result->fetch_array(MYSQLI_ASSOC)['punten'];
-        $newpoints = $currentpoints + $points;
-
-        $stmt = $this->mysqli->prepare("UPDATE account SET punten = ? WHERE username = ?");
-        $stmt->bind_param("is", $newpoints, $username);
-        if($stmt->execute()){
+        $stmt = $this->mysqli->prepare("UPDATE account SET punten = punten + ? WHERE username = ?");
+        $stmt->bind_param("is", $points, $username);
+        if ($stmt->execute()) {
             return true;
-        }else{
+        } else {
             return $this->mysqli->error;
         }
     }
