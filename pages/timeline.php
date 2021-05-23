@@ -16,7 +16,7 @@ if($_SESSION["loggedin"] != true){
 <form method="post" action="">
     <input type="text" placeholder="title" name="title">
     <input type="text" placeholder="code" name="code">
-    <input type="text" placeholder="evauluate" name="subtext">
+    <input type="text" placeholder="subtext" name="subtext">
     <input type="submit" name="upload">
 </form>
         <?php
@@ -33,7 +33,7 @@ if($_SESSION["loggedin"] != true){
 
 
             $timeline = new Timeline();
-            
+            if (!empty($timeline->getPosts())) {
             for ($i = 0; $i < count($timeline->getPosts()); $i++) {
                 echo "<table style='border:1px solid black'>";
                 echo "<tr><td style='background-color:lightblue;'>" . $timeline->getPosts()[$i]["title"] . "</td></tr>";
@@ -42,7 +42,8 @@ if($_SESSION["loggedin"] != true){
                 echo "<tr><td>" . $timeline->getPosts()[$i]["timestamp"] . "</td></tr>";
                 echo "<tr><td style='background-color:lightblue;'><a href='post.php?id=" . $timeline->getPosts()[$i]["post_id"] . "'>antwoord</a></td></tr>";
                 echo "</table><br>";
-            ;}
+            }
+        }
         ?>
 </body>
 </html>
