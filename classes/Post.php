@@ -27,6 +27,8 @@ class Post
         $stmt = $this->mysqli->prepare("INSERT INTO posts (account_id, title, code, subtext, timestamp) VALUES (?, ?, ?, ?, NOW())");
         $stmt->bind_param("isss", $id, $title, $code, $subtext);
         if ($stmt->execute()) {
+//            Moet nog kijken hoeveel punten je krijgt
+            $this->updatePoints($username, 1);
             return true;
         } else {
             return $this->mysqli->error;
@@ -65,9 +67,11 @@ class Post
 
     public function addComment($comment, $username, $id) {
         $accountid = $this->getAccountId($username);
-        $stmt1 = $this->mysqli->prepare("INSERT INTO comments (comment, punten, post_id, account_id) VALUES (?, 0, ?, ?)");
-        $stmt1->bind_param("sii", $comment, $id, $accountid);
-        if($stmt1->execute()){
+        $stmt = $this->mysqli->prepare("INSERT INTO comments (comment, punten, post_id, account_id) VALUES (?, 0, ?, ?)");
+        $stmt->bind_param("sii", $comment, $id, $accountid);
+        if($stmt->execute()){
+//            Moet nog kijken hoeveel punten je krijgt
+            $this->updatePoints($username, 1);
             return true;
         }else{
             return $this->mysqli->error;
@@ -81,5 +85,22 @@ class Post
         $result = $stmt->get_result();
         $accountid = $result->fetch_array(MYSQLI_ASSOC);
         return $accountid['account_id'];
+    }
+
+    public function updatePoints($username, $points) {
+        $stmt = $this->mysqli->prepare("SELECT punten FROM account WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $currentpoints = $result->fetch_array(MYSQLI_ASSOC)['punten'];
+        $newpoints = $currentpoints + $points;
+
+        $stmt = $this->mysqli->prepare("UPDATE account SET punten = ? WHERE username = ?");
+        $stmt->bind_param("is", $newpoints, $username);
+        if($stmt->execute()){
+            return true;
+        }else{
+            return $this->mysqli->error;
+        }
     }
 }

@@ -62,5 +62,6 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
         <input type="hidden" name="post_id" value="<?echo htmlspecialchars($_GET["id"]);?>">
         <input type="submit" value="comment">
         </form>
+        <a href="timeline.php">ga terug</a>
 </body>
 </html>
