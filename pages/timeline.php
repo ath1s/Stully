@@ -20,14 +20,16 @@ if($_SESSION["loggedin"] != true){
         <input type="submit" name="upload" value="upload">
     </form>
         <?php
-            require_once ('../classes/Timeline.php');
+            require_once('../classes/Timeline.php');
             require_once('../classes/Post.php');
 
             $post = new Post();
-
+            
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['upload'] == 'upload') {
+                if(!empty($_POST["title"]) && !empty($_POST["code"] && !empty($_POST["subtext"]))){
                 $info = $post->htmlSpecialCharArray($_POST);
                 $post->createPost($_SESSION['username'], $info);
+                }
             }
 
 
