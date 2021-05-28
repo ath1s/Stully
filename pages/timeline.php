@@ -117,7 +117,6 @@ if($_SESSION["loggedin"] != true){
 
                     $posts = $post->getPosts();
                     if (!empty($posts)) {
-                        var_dump($posts[0]);
                         foreach ($posts as $item) {
                                 echo '<div class="card mb-3 shadow-sm" style="background: white; opacity: none;">';
                                 echo '<div class="card-body">';

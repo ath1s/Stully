@@ -110,9 +110,13 @@ class Post
         if ($stmt = $this->mysqli->query("SELECT post_id, account_id, title, code, subtext, timestamp FROM posts ORDER BY timestamp DESC")) {
             if ($stmt->num_rows > 0) {
                 while ($row = $stmt->fetch_array(MYSQLI_ASSOC)) {
-                    $test[] = $row;
+                    $posts[] = $row;
                 }
-                return $test;
+                $nr = count($posts);
+                for ($i = 0; $i < $nr; $i++) {
+                    $posts[$i]['timestamp'] = $this->time_elapsed_string($posts[$i]['timestamp']);
+                }
+                return $posts;
             }
         } else {
             return $this->mysqli->error;
@@ -139,13 +143,13 @@ class Post
         $diff->d -= $diff->w * 7;
 
         $string = array(
-            'y' => 'jaar',
-            'm' => 'maand',
+            'y' => 'year',
+            'm' => 'month',
             'w' => 'week',
-            'd' => 'dag',
-            'h' => 'uur',
-            'i' => 'minuut',
-            's' => 'seconde',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
         );
         foreach ($string as $k => &$v) {
             if ($diff->$k) {
