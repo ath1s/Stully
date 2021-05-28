@@ -35,6 +35,16 @@ class Post
         }
     }
 
+    public function deletePost($id) {
+        $stmt = $this->mysqli->prepare("DELETE FROM posts WHERE post_id = ?");
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return $this->mysqli->error;
+        }
+    }
+
     public function showPost($id) {
         $stmt = $this->mysqli->prepare("SELECT * FROM posts WHERE post_id = ?");
         $stmt->bind_param("i", $id);
@@ -79,15 +89,6 @@ class Post
         }
     }
 
-    private function getAccountId($username) {
-        $stmt = $this->mysqli->prepare("SELECT account_id FROM account WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $accountid = $result->fetch_array(MYSQLI_ASSOC);
-        return $accountid['account_id'];
-    }
-
     public function upvote($comment_id) {
         $stmt = $this->mysqli->prepare("UPDATE comments SET punten = punten + 1 WHERE comment_id = ?");
         $stmt->bind_param("i", $comment_id);
@@ -123,6 +124,14 @@ class Post
         }
     }
 
+    public function getAccountId($username) {
+        $stmt = $this->mysqli->prepare("SELECT account_id FROM account WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $accountid = $result->fetch_array(MYSQLI_ASSOC);
+        return $accountid['account_id'];
+    }
 
     private function updatePoints($username, $points) {
         $stmt = $this->mysqli->prepare("UPDATE account SET punten = punten + ? WHERE username = ?");
