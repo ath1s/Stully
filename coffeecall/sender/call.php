@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +20,11 @@
             <div class="call-action-div">
                 <button onclick="muteVideo()">Mute Video</button>
                 <button onclick="muteAudio()">Mute Audio</button>
+                <button onclick="window.location.href='../../php/redirect1.php'">leave call</button>
             </div>
         </div>
         <script>
-            console.log(document.getElementById("id").innerText);
+            //console.log(document.getElementById("id").innerText);
         </script>
         <script src="sender.js"></script>
 </body>
