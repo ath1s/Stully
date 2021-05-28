@@ -51,7 +51,7 @@ class Post
     }
 
     public function showComments($id) {
-        $stmt = $this->mysqli->prepare("SELECT comment_id, comment, punten, account_id FROM comments WHERE post_id = ?");
+        $stmt = $this->mysqli->prepare("SELECT comment_id, comment, punten, account_id FROM comments WHERE post_id = ? ORDER BY punten DESC");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();

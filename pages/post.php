@@ -35,18 +35,19 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                 echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["timestamp"] . "</td></tr>";
                 echo "</table><br>";
             }
-            if (!empty($post->showComments(htmlspecialchars($_GET["id"])))){
-                for ($i = 0; $i < count($post->showComments(htmlspecialchars($_GET["id"]))); $i++) {
-                    $stmt1 = $mysql->query("SELECT username FROM account WHERE account_id =" . $post->showComments(htmlspecialchars($_GET['id']))[$i]['account_id'] . ";");
-                    $row = $stmt1->fetch_array(MYSQLI_ASSOC);
+            $comments = $post->showComments(htmlspecialchars($_GET["id"]));
+            if (!empty($comments)) {
+                $stmt = $mysql->query("SELECT username FROM account WHERE account_id = " . $comments[0]['account_id'] . ";");
+                $commentaccount = $stmt->fetch_array(MYSQLI_ASSOC)["username"];
+                foreach ($comments as $comment) {
                     echo "<table style='border:1px solid black'>";
-                    echo "<tr><td style='background-color:lightblue;'>" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["comment"] . "</td></tr>";
-                    echo "<tr><td>" . $row["username"] . "</td></tr>";
-                    echo "<tr><td style='background-color:lightblue;'>" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["punten"] . "</td></tr>";
+                    echo "<tr><td style='background-color:lightblue;'>" . $comment["comment"] . "</td></tr>";
+                    echo "<tr><td>" . $commentaccount . "</td></tr>";
+                    echo "<tr><td style='background-color:lightblue;'>" . $comment["punten"] . "</td></tr>";
                     echo"<tr><td>
                     <form action='../php/vote.php' method='post'>
                     <input type='hidden' name='post_id' value='" . $_GET["id"] . "'>
-                    <input type='hidden' name='id' value='" . $post->showComments(htmlspecialchars($_GET["id"]))[$i]["comment_id"] . "'>
+                    <input type='hidden' name='id' value='" . $comment["comment_id"] . "'>
                     <input type='hidden' name='vote' value='upvote'>
                     <input type='submit' value='upvote'>
                     </form></tr></td>";
