@@ -44,6 +44,7 @@ class Post
             while ($row = $result->fetch_array(MYSQLI_ASSOC)){
                 $posts[] = $row;
             }
+            $posts[0]['timestamp'] = $this->time_elapsed_string($posts[0]['timestamp']);
             return $posts;
         } else {
             return $this->mysqli->error;
@@ -105,6 +106,24 @@ class Post
         }
     }
 
+    public function getPosts() {
+        if ($stmt = $this->mysqli->query("SELECT post_id, account_id, title, code, subtext, timestamp FROM posts ORDER BY timestamp DESC")) {
+            if ($stmt->num_rows > 0) {
+                while ($row = $stmt->fetch_array(MYSQLI_ASSOC)) {
+                    $posts[] = $row;
+                }
+                $nr = count($posts);
+                for ($i = 0; $i < $nr; $i++) {
+                    $posts[$i]['timestamp'] = $this->time_elapsed_string($posts[$i]['timestamp']);
+                }
+                return $posts;
+            }
+        } else {
+            return $this->mysqli->error;
+        }
+    }
+
+
     private function updatePoints($username, $points) {
         $stmt = $this->mysqli->prepare("UPDATE account SET punten = punten + ? WHERE username = ?");
         $stmt->bind_param("is", $points, $username);
@@ -113,5 +132,34 @@ class Post
         } else {
             return $this->mysqli->error;
         }
+    }
+
+    private function time_elapsed_string($datetime, $full = false) {
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 }
