@@ -39,7 +39,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
             }
 
         $accountid = $post->getAccountId($_SESSION['username']);
-            if ($accountid == $postaccountid) {
+            if ($accountid == $postaccountid || $post->getAccountRole($_SESSION['username']) == 'admin') {
                 echo "
                 <form action='../php/delete.php' method='post'>
                     <input type='hidden' name='accountid' value='" . $accountid . "'>

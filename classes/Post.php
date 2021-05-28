@@ -35,24 +35,20 @@ class Post
         }
     }
 
-    public function deletePost($accountid, $postid) {
-        if (true) {
-            if ($this->showComments($postid)) {
-                $stmt = $this->mysqli->prepare("DELETE FROM comments WHERE post_id = ?");
+    public function deletePost($postid) {
+        if ($this->showComments($postid)) {
+            $stmt = $this->mysqli->prepare("DELETE FROM comments WHERE post_id = ?");
+            $stmt->bind_param("i", $postid);
+            if ($stmt->execute()) {
+                $stmt = $this->mysqli->prepare("DELETE FROM posts WHERE post_id = ?");
                 $stmt->bind_param("i", $postid);
                 if ($stmt->execute()) {
-                    $stmt = $this->mysqli->prepare("DELETE FROM posts WHERE post_id = ?");
-                    $stmt->bind_param("i", $postid);
-                    if ($stmt->execute()) {
-                        return true;
-                    } else {
-                        return $this->mysqli->error;
-                    }
+                    return true;
                 } else {
                     return $this->mysqli->error;
                 }
             } else {
-                return false;
+                return $this->mysqli->error;
             }
         } else {
             return false;
@@ -145,6 +141,16 @@ class Post
         $result = $stmt->get_result();
         $accountid = $result->fetch_array(MYSQLI_ASSOC);
         return $accountid['account_id'];
+    }
+
+//    Admin roles zijn er nog niet
+    public function getAccountRole($username) {
+        $stmt = $this->mysqli->prepare("SELECT role FROM account WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $role = $result->fetch_array(MYSQLI_ASSOC)['role'];
+        return $role;
     }
 
     private function updatePoints($username, $points) {
