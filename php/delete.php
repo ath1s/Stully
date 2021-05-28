@@ -10,5 +10,5 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['delete'] == 'delete') {
         echo "<a href='../pages/timeline.php '>Ga naar de timeline</a>";
     }
 } else {
-
+    header("Location: ../pages/timeline.php");
 }
