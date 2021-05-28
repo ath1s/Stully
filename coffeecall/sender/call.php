@@ -20,7 +20,7 @@
             </div>
         </div>
         <script>
-            console.log(document.getElementById("id").innerText);
+            //console.log(document.getElementById("id").innerText);
         </script>
         <script src="sender.js"></script>
 </body>
