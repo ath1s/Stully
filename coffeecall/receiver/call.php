@@ -11,8 +11,8 @@
 <span>Username: </span><span id="roomname"><?php echo $_GET['id']; ?></span>
     <button onclick="joinCall()">Join Call</button>
         <div id="video-call-div">
-            <video muted id="local-video" autoplay></video>
             <video id="remote-video" autoplay></video>
+            <video muted id="local-video" autoplay></video>
             <div class="call-action-div">
                 <button onclick="muteVideo()">Mute Video</button>
                 <button onclick="muteAudio()">Mute Audio</button>
