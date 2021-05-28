@@ -123,7 +123,7 @@ if($_SESSION["loggedin"] != true){
                                 echo '<h4 class="card-title">' . $item["title"] . '</h4>';
                                 echo '<p class="card-text">' . $item["code"] . '</p>';
                                 echo '<p class="card-text">' . $item["subtext"] . '</p>';
-                                echo '<p class="card-text">' . $item["timestamp"] . '</p>';
+                                echo '<p class="card-text text-info">' . $item["timestamp"] . '</p>';
                                 echo '<a href="post.php?id=' . $item["post_id"] . '" class="btn btn-outline-primary">Reageer</a>';
 
                                 echo '</div>';

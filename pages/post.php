@@ -20,9 +20,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stully - <?php echo $row["username"];?>'s post</title>
     <script
-        src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous">
+        src="https://code.jquery.com/jquery-3.6.0.js">
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
@@ -81,6 +79,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
         </div>
         </div>
     </div>
+    <main class="container-fluid rounded main-bgcolor mh-100 pt-3">
 
         <?php
             require_once('../classes/Post.php');
@@ -119,6 +118,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                 <h4>Comments:</h4>
             </div>
         </div>
+        <div class="post-bgcolor rounded">
 
             <?php
             $comments = $post->showComments(htmlspecialchars($_GET["id"]));
@@ -157,8 +157,10 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                     echo '</div>';
                 }
             } else {
-                echo "Maak de eerste comment!";
+                echo '<div class="card-body pt-3 pl-3 pr-3 pb-2"><h4>Maak de eerste comment!</h4></div>';
             }
         ?>
+        </div>
+    </main>
 </body>
 </html>
