@@ -25,7 +25,7 @@ if($_SESSION["loggedin"] != true){
 <body>
     <nav class="clearfix border nav-bgcolor">
         <form action="../php/logout.php">
-            <button class="btn btn-secondary float-left m-2 shadow-sm" type="submit" value="Logout">
+            <button class="btn btn-outline-secondary float-left m-2 shadow-sm" type="submit" value="Logout">
                 Logout
             </button>
         </form>
@@ -40,7 +40,7 @@ if($_SESSION["loggedin"] != true){
         </button>
     </nav>
 
-    <!-- The Modal -->
+    <!-- Post Modal -->
     <div class="modal fade" id="postModal">
         <div class="modal-post modal-dialog modal-lg">
         <div class="modal-content">
@@ -120,11 +120,13 @@ if($_SESSION["loggedin"] != true){
                         foreach ($posts as $item) {
                                 echo '<div class="card mb-3 shadow-sm" style="background: white; opacity: none;">';
                                 echo '<div class="card-body">';
-                                echo '<h4 class="card-title">' . $item["title"] . '</h4>';
-                                echo '<p class="card-text">' . $item["code"] . '</p>';
-                                echo '<p class="card-text">' . $item["subtext"] . '</p>';
-                                echo '<p class="card-text">' . $item["timestamp"] . '</p>';
-                                echo '<a href="post.php?id=' . $item["post_id"] . '" class="card-link">React</a>';
+
+                                echo '<h4 class="card-title">' . $timeline->getPosts()[$i]["title"] . '</h4>';
+                                echo '<p class="card-text">' . $timeline->getPosts()[$i]["code"] . '</p>';
+                                echo '<p class="card-text">' . $timeline->getPosts()[$i]["subtext"] . '</p>';
+                                echo '<p class="card-text">' . $timeline->getPosts()[$i]["timestamp"] . '</p>';
+                                echo '<a href="post.php?id=' . $timeline->getPosts()[$i]["post_id"] . '" class="btn btn-outline-primary">Reageer</a>';
+
                                 echo '</div>';
                                 echo '</div>';
                         }

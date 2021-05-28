@@ -53,6 +53,10 @@ body {
     background-color: #222f3e;
 }
 
+.btn-outline-secondary {
+    color: #222f3e;
+}
+
 .register {
     padding: 5px 0 25px;
 }
