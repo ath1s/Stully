@@ -78,9 +78,26 @@ if($_SESSION["loggedin"] != true){
     <main class="container-fluid rounded main-bgcolor mh-100 pt-3">
         <div class="row">
             <div class="col-sm-auto">
-                <aside class="container rounded border border-dark">
-                    <div class="container">
-                        Placeholder
+                <aside class="container rounded border shadow-sm">
+                    <div class="row pt-3 pl-1 pr-3">
+                        <img class="col rounded-circle" style="height: 150px; width: 150px;" src="../assets/img/profile-placeholder.png" alt="Profile picture">
+                    </div>
+                    <div class="row pt-3 pl-1 pr-3">
+                        <h4 class="col">Welkom, <?php echo $_SESSION['username'] ?></h4>
+                    </div>
+                    <div class="row pt-3 pl-3 pr-3">
+                        <ul class="col list-group">
+                            <li class="list-group-item">Bekijk profiel</li>
+                            <li class="list-group-item">Instellingen</li>
+                            <li class="list-group-item">Recente post</li>
+                        </ul>
+                    </div>
+                    <div class="row pt-3 pl-1 pr-3">
+                        <h5 class="col">Puntensaldo: </h5>
+                        <p class="col">0</p>
+                    </div>
+                    <div class="row pt-3 pl-3 pr-3">
+                        <button class="col btn btn-disabled shadow-sm mb-3" style="text-decoration: line-through;" onclick="alert('Coming soon!');">Ga naar shop</button>
                     </div>
                 </aside>
             </div>
@@ -105,6 +122,7 @@ if($_SESSION["loggedin"] != true){
                                 echo '<div class="card mb-3 shadow-sm" style="background: white; opacity: none;">';
                                 echo '<div class="card-body">';
                                 echo '<h4 class="card-title">' . $timeline->getPosts()[$i]["title"] . '</h4>';
+                                echo '<p class="card-text">' . $timeline->getPosts()[$i]["code"] . '</p>';
                                 echo '<p class="card-text">' . $timeline->getPosts()[$i]["subtext"] . '</p>';
                                 echo '<p class="card-text">' . $timeline->getPosts()[$i]["timestamp"] . '</p>';
                                 echo '<a href="post.php?id=' . $timeline->getPosts()[$i]["post_id"] . '" class="card-link">React</a>';
