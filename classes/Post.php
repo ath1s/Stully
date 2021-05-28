@@ -27,6 +27,8 @@ class Post
         $stmt = $this->mysqli->prepare("INSERT INTO posts (account_id, title, code, subtext, timestamp) VALUES (?, ?, ?, ?, NOW())");
         $stmt->bind_param("isss", $id, $title, $code, $subtext);
         if ($stmt->execute()) {
+//            Moet nog kijken hoeveel punten je krijgt
+            $this->updatePoints($username, 1);
             return true;
         } else {
             return $this->mysqli->error;
@@ -43,7 +45,7 @@ class Post
                 $posts[] = $row;
             }
             return $posts;
-        }else{
+        } else {
             return $this->mysqli->error;
         }
     }
@@ -58,18 +60,20 @@ class Post
                 $comments[] = $row;
             }
             return $comments;
-        }else{
+        } else {
             return $this->mysqli->error;
         }
     }
 
     public function addComment($comment, $username, $id) {
         $accountid = $this->getAccountId($username);
-        $stmt1 = $this->mysqli->prepare("INSERT INTO comments (comment, punten, post_id, account_id) VALUES (?, 0, ?, ?)");
-        $stmt1->bind_param("sii", $comment, $id, $accountid);
-        if($stmt1->execute()){
+        $stmt = $this->mysqli->prepare("INSERT INTO comments (comment, punten, post_id, account_id) VALUES (?, 0, ?, ?)");
+        $stmt->bind_param("sii", $comment, $id, $accountid);
+        if($stmt->execute()){
+//            Moet nog kijken hoeveel punten je krijgt
+            $this->updatePoints($username, 1);
             return true;
-        }else{
+        } else {
             return $this->mysqli->error;
         }
     }
@@ -81,5 +85,33 @@ class Post
         $result = $stmt->get_result();
         $accountid = $result->fetch_array(MYSQLI_ASSOC);
         return $accountid['account_id'];
+    }
+
+    public function upvote($comment_id) {
+        $stmt = $this->mysqli->prepare("UPDATE comments SET punten = punten + 1 WHERE comment_id = ?");
+        $stmt->bind_param("i", $comment_id);
+        if($stmt->execute()){
+            $stmt = $this->mysqli->prepare("SELECT username FROM account WHERE account_id = (SELECT account_id FROM comments WHERE comment_id = ?)");
+            $stmt->bind_param("i", $comment_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $commentuser = $result->fetch_array(MYSQLI_ASSOC)['username'];
+
+//            Moet nog kijken hoeveel punten je krijgt
+            $this->updatePoints($commentuser, 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function updatePoints($username, $points) {
+        $stmt = $this->mysqli->prepare("UPDATE account SET punten = punten + ? WHERE username = ?");
+        $stmt->bind_param("is", $points, $username);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return $this->mysqli->error;
+        }
     }
 }
