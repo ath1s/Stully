@@ -44,6 +44,7 @@ class Post
             while ($row = $result->fetch_array(MYSQLI_ASSOC)){
                 $posts[] = $row;
             }
+            $posts[0]['timestamp'] = $this->time_elapsed_string($posts[0]['timestamp']);
             return $posts;
         } else {
             return $this->mysqli->error;
@@ -113,5 +114,34 @@ class Post
         } else {
             return $this->mysqli->error;
         }
+    }
+
+    private function time_elapsed_string($datetime, $full = false) {
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        $string = array(
+            'y' => 'jaar',
+            'm' => 'maand',
+            'w' => 'week',
+            'd' => 'dag',
+            'h' => 'uur',
+            'i' => 'minuut',
+            's' => 'seconde',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 }

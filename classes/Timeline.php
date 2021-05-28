@@ -16,7 +16,7 @@ class Timeline
     }
 
     public function getPosts() {
-        if ($stmt = $this->mysqli->query("SELECT post_id, account_id, title, code, subtext, timestamp FROM posts")) {
+        if ($stmt = $this->mysqli->query("SELECT post_id, account_id, title, code, subtext, timestamp FROM posts ORDER BY timestamp DESC")) {
             if ($stmt->num_rows > 0) {
                 while ($row = $stmt->fetch_array(MYSQLI_ASSOC)) {
                     $test[] = $row;
