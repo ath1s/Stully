@@ -104,7 +104,6 @@ if($_SESSION["loggedin"] != true){
             <div class="col-lg-10">
                 <div class="container post-bgcolor rounded mx-auto scroll-post">
                     <?php
-                        require_once('../classes/Timeline.php');
                         require_once('../classes/Post.php');
 
                         $post = new Post();
@@ -116,20 +115,20 @@ if($_SESSION["loggedin"] != true){
                             }
                         }
 
-                        $timeline = new Timeline();
-                        if (!empty($timeline->getPosts())) {
-                            for ($i = 0; $i < count($timeline->getPosts()); $i++) {
+                    $posts = $post->getPosts();
+                    if (!empty($posts)) {
+                        foreach ($posts as $item) {
                                 echo '<div class="card mb-3 shadow-sm" style="background: white; opacity: none;">';
                                 echo '<div class="card-body">';
-                                echo '<h4 class="card-title">' . $timeline->getPosts()[$i]["title"] . '</h4>';
-                                echo '<p class="card-text">' . $timeline->getPosts()[$i]["code"] . '</p>';
-                                echo '<p class="card-text">' . $timeline->getPosts()[$i]["subtext"] . '</p>';
-                                echo '<p class="card-text">' . $timeline->getPosts()[$i]["timestamp"] . '</p>';
-                                echo '<a href="post.php?id=' . $timeline->getPosts()[$i]["post_id"] . '" class="card-link">React</a>';
+                                echo '<h4 class="card-title">' . $item["title"] . '</h4>';
+                                echo '<p class="card-text">' . $item["code"] . '</p>';
+                                echo '<p class="card-text">' . $item["subtext"] . '</p>';
+                                echo '<p class="card-text">' . $item["timestamp"] . '</p>';
+                                echo '<a href="post.php?id=' . $item["post_id"] . '" class="card-link">React</a>';
                                 echo '</div>';
                                 echo '</div>';
-                            }
                         }
+                    }
                     ?>
                 </div>
             </div>
