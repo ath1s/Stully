@@ -1,6 +1,7 @@
 body {
     background: url(../assets/background.jpeg) no-repeat center center fixed;
     background-size: cover;
+    overflow-y: hidden;
 }
 
 .main-section {
@@ -48,10 +49,35 @@ body {
     border: 1px solid #daf1ff;
 }
 
+.btn-secondary {
+    background-color: #222f3e;
+}
+
 .register {
     padding: 5px 0 25px;
 }
 
 .register a {
     color: #13445e;
+}
+
+.scroll-post {
+    height: 93vh;
+    overflow-y: scroll;
+}
+
+.main-bgcolor {
+    background-color: white;
+    opacity: 75%;
+}
+
+.nav-bgcolor {
+    background-color: #c8d6e5;
+    opacity: 75%;
+}
+
+.modal-post {
+    border-radius: 9px;
+    background-color: white;
+    opacity: none;
 }
