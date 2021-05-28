@@ -35,13 +35,27 @@ class Post
         }
     }
 
-    public function deletePost($id) {
-        $stmt = $this->mysqli->prepare("DELETE FROM posts WHERE post_id = ?");
-        $stmt->bind_param("i", $id);
-        if ($stmt->execute()) {
-            return true;
+    public function deletePost($accountid, $postid) {
+        if (true) {
+            if ($this->showComments($postid)) {
+                $stmt = $this->mysqli->prepare("DELETE FROM comments WHERE post_id = ?");
+                $stmt->bind_param("i", $postid);
+                if ($stmt->execute()) {
+                    $stmt = $this->mysqli->prepare("DELETE FROM posts WHERE post_id = ?");
+                    $stmt->bind_param("i", $postid);
+                    if ($stmt->execute()) {
+                        return true;
+                    } else {
+                        return $this->mysqli->error;
+                    }
+                } else {
+                    return $this->mysqli->error;
+                }
+            } else {
+                return false;
+            }
         } else {
-            return $this->mysqli->error;
+            return false;
         }
     }
 
