@@ -1,3 +1,12 @@
+<?php
+session_start();
+require_once("../../classes/Account.php");
+require_once("../../classes/Dbconnectie.php");
+$status = new Account();
+$status->changeStatus($_SESSION["username"], "oncall");
+$status->changeStatus($_GET["id"], "oncall");
+$_SESSION["username2"] = $_GET["id"];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +25,7 @@
             <div class="call-action-div">
                 <button onclick="muteVideo()">Mute Video</button>
                 <button onclick="muteAudio()">Mute Audio</button>
+                <button onclick="window.location.href='../../php/redirect2.php'">leave call</button>
             </div>
         </div>
         <script src="receiver.js"></script>

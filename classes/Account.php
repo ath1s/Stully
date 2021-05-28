@@ -106,7 +106,7 @@ class Account
     }
 
     public function changeStatus($username, $status) {
-        if ($status == "offline" || $status == "online" || $status == "in call" || $status == "available") {
+        if ($status == "offline" || $status == "online" || $status == "in call" || $status == "available" || $status == "oncall") {
             if ($this->mysqli->query("UPDATE account SET status = '$status' WHERE username = '$username';")) {
                 return true;
             } else {
