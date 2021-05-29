@@ -4,6 +4,13 @@ if($_SESSION["loggedin"] != true){
     header("Location:../index.php");
 }
 require_once('../classes/Dbconnectie.php');
+
+require_once('../classes/Post.php');
+$post = new Post();
+$show = $post->showPost(htmlspecialchars($_GET["id"]));
+$postaccountid = $show[0]["account_id"];
+$postid = $show[0]["post_id"];
+
 $conn = new Dbconnectie();
 $mysql = $conn->getConnection();
 $stmt = $mysql->prepare("SELECT username FROM account WHERE account_id = (SELECT account_id FROM posts where post_id = ?);");
@@ -40,16 +47,85 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
         <button class="btn btn-secondary float-left m-2 shadow-sm" onclick="window.location.href = 'timeline.php'">
             Terug
         </button>
-
-        <!-- Button to Open the post Modal -->
-        <button type="button" class="btn btn-disable float-right m-2 shadow-sm" onclick="alert('Niet beschikbaar.')" data-toggle="modal" data-target="#postModal">
-            Post
-        </button>
         
         <button type="button" onclick="window.location.href = 'status.php'" class="btn btn-primary float-right m-2 shadow-sm">
             Video call
         </button>
     </nav>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-post modal-dialog modal-lg">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">Weet je het zeker?</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <!-- Delete button -->
+                    <form action="../php/delete.php" method="post">
+                        <input type='hidden' name='accountid' value='<?php echo $accountid; ?>'>
+                        <input type='hidden' name='postid' value='<?php echo $postid; ?>'>
+                        <!-- Annuleer button -->
+                        <button class="btn btn-primary shadow-sm mr-3" data-dismiss="modal">Annuleer</button>
+                        <button class="btn btn-outline-danger shadow-sm" type='submit' name='delete' value='Delete'>Verwijder</button>
+                    </form>
+                </div>
+
+            </div>
+            
+        </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal">
+        <div class="modal-post modal-dialog modal-lg">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">Edit je probleem</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <form action="../php/edit.php" method="post">
+                    <div class="form-group">
+                        <label for="title">Titel:</label>
+                        <input class="form-control" type='text' name='title' placeholder='Verander je titel:' value='<?php echo $show[0]["title"]; ?>'>
+                    </div>
+                    <div class="form-group">
+                        <label for="code">Probleem:</label>
+                        <input class="form-control" type='text' name='code' placeholder='verander je code' value='<?php echo $show[0]["code"]; ?>'>
+                    </div>
+                    <div class="form-group">
+                        <label for="subtext">Beschrijving:</label>
+                        <input class="form-control" type='text' name='subtext' placeholder='verander je beschrijving' value='<?php echo $show[0]["subtext"]; ?>'>
+                    </div>
+
+                    <!-- Edit button -->
+                    <input type='hidden' name='accountid' value='<?php echo $accountid; ?>'>
+                    <input type='hidden' name='postid' value='<?php echo $postid; ?>'>
+                    <input class="btn btn-primary shadow-sm" type='submit' name='edit' value='Edit'>
+
+                    <!-- Delete modal button -->
+                    <button class="btn btn-outline-danger shadow-sm float-right" type="button" data-toggle="modal" data-target="#deleteModal" data-dismiss="modal">Delete</button>
+                    
+                </form>
+
+            </div>
+            
+        </div>
+        </div>
+    </div>
 
     <!-- React Modal -->
     <div class="modal fade" id="reactModal">
@@ -58,8 +134,8 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
         
             <!-- Modal Header -->
             <div class="modal-header">
-            <h4 class="modal-title">Reageer</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Reageer</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
             <!-- Modal body -->
@@ -82,11 +158,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
     <main class="container-fluid rounded main-bgcolor mh-100 pt-3 pb-3">
 
         <?php
-            require_once('../classes/Post.php');
 
-            $post = new Post();
-            if(count($post->showPost(htmlspecialchars($_GET["id"]))) > 0){
-                $show = $post->showPost(htmlspecialchars($_GET["id"]));
                 echo '<div class="card w-75 m-3 shadow-sm" style="background: white; opacity: none;">';
                 echo '<div class="card-header">';
                 echo '<h4 class="card-title">' . $show[0]["title"] . '</h4>';
@@ -98,26 +170,44 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                 echo '<p class="card-text text-info">' . $show[0]["timestamp"] . '</p>';
                 echo '</div>';
                 echo '</div>';
-            }
-
+            
             ?> 
 
-        <!-- React button -->
-        <button class="btn btn-primary shadow-sm ml-3" data-toggle="modal" data-target="#reactModal">Reageer</button>
+        <div class="row ml-3">
 
-        <div class="card ml-3 mt-5 mb-4" style="width: 225px;">
-            <div class="card-body pt-3 pl-3 pr-3 pb-2">
-                <h4>Comments:</h4>
-            </div>
+            <!-- React button -->
+            <button class="btn btn-primary shadow-sm mr-3" data-toggle="modal" data-target="#reactModal">Reageer</button>
+            
+            <!-- Edit button -->
+            <?php 
+                $accountid = $post->getAccountId($_SESSION['username']);
+                if ($accountid == $postaccountid
+            //                voor wanneer roles worden gebruikt
+            //                || $post->getAccountRole($_SESSIONs['username']) == 'admin'
+                ) {
+                    // Edit button
+                    echo '<button class="btn btn-outline-primary shadow-sm mr-3" data-toggle="modal" data-target="#editModal">Edit</button>';
+                }
+
+            ?>
+
         </div>
+        
+        <div class="container ml-0 mt-5 mb-4" style="width: 225px;">
+            <h4>Comments:</h4>
+        </div>
+
         <div class="post-bgcolor rounded">
 
             <?php
+
             $comments = $post->showComments(htmlspecialchars($_GET["id"]));
             if (!empty($comments)) {
-                $stmt = $mysql->query("SELECT username FROM account WHERE account_id = " . $comments[0]['account_id'] . ";");
-                $commentaccount = $stmt->fetch_array(MYSQLI_ASSOC)["username"];
                 foreach ($comments as $comment) {
+
+                    $stmt = $mysql->query("SELECT username FROM account WHERE account_id = " . $comment['account_id'] . ";");
+                    $commentaccount = $stmt->fetch_array(MYSQLI_ASSOC)["username"];
+
                     echo '<div class="card w-50 m-3 shadow-sm" style="background: white; opacity: none;">';
                     echo '<div class="card-header">';
                     echo '<h5 class="card-title m-n1">' . $commentaccount . '</h5>';
@@ -125,7 +215,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                     echo '<div class="card-body">';
                     echo '<p class="card-text">' . $comment["comment"] . '</p>';
                     echo '<p class="card-text text-muted">Upvotes: ' . $comment["punten"] . '</p>';
-                    echo '<p class="card-text">' . $show[0]["timestamp"] . '</p>';
+                    echo '<p class="card-text text-info">' . $show[0]["timestamp"] . '</p>';
                     echo " <form action='../php/vote.php' method='post'>
                     <input type='hidden' name='post_id' value='" . $_GET["id"] . "'>
                     <input type='hidden' name='id' value='" . $comment["comment_id"] . "'>
@@ -136,7 +226,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                     echo '</div>';
                 }
             } else {
-                echo '<div class="card-body p-3"><h4>Maak de eerste comment!</h4></div>';
+                echo '<div class="card-body p-3"><h5>Maak de eerste comment!</h5></div>';
             }
         ?>
         </div>
