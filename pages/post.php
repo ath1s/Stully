@@ -87,6 +87,41 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
             $post = new Post();
             if(count($post->showPost(htmlspecialchars($_GET["id"]))) > 0){
                 $show = $post->showPost(htmlspecialchars($_GET["id"]));
+
+                $postaccountid = $show[0]["account_id"];
+                $postid = $show[0]["post_id"];
+                echo "<table style='border:1px solid black'>";
+                echo "<tr><th style='font-size:30px;background-color:lightblue;'>" . $show[0]["title"] . "</th></tr>";
+                echo "<tr><td style='font-size:15px;'>" . $row["username"] . "</td></tr>";
+                echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["code"] . "</td></tr>";
+                echo "<tr><td style='font-size:20px;'>" . $show[0]["subtext"] . "</td></tr>";
+                echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["timestamp"] . "</td></tr>";
+                echo "</table><br>";
+            }
+
+        $accountid = $post->getAccountId($_SESSION['username']);
+            if ($accountid == $postaccountid
+//                voor wanneer roles worden gebruikt
+//                || $post->getAccountRole($_SESSION['username']) == 'admin'
+            ) {
+                echo "
+                <form action='../php/delete.php' method='post'>
+                    <input type='hidden' name='accountid' value='" . $accountid . "'>
+                    <input type='hidden' name='postid' value='" . $postid . "'>
+                    <input type='submit' name='delete' value='delete'>
+                </form>
+                
+                <form action='../php/edit.php' method='post'>
+                    <input type='text' name='title' placeholder='Verander je titel' value='" . $show[0]["title"] . "'>
+                    <input type='text' name='code' placeholder='verander je code' value='" . $show[0]["code"] . "'>
+                    <input type='text' name='subtext' placeholder='verander je beschrijving' value='" . $show[0]["subtext"] . "'>
+                    <input type='hidden' name='accountid' value='" . $accountid . "'>
+                    <input type='hidden' name='postid' value='" . $postid . "'>
+                    <input type='submit' name='edit' value='edit'>
+                </form>";
+            }
+
+
                 // echo "<table style='border:1px solid black'>";
                 // echo "<tr><th style='font-size:30px;background-color:lightblue;'>" . $show[0]["title"] . "</th></tr>";
                 // echo "<tr><td style='font-size:15px;'>" . $row["username"] . "</td></tr>";
@@ -121,6 +156,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
         <div class="post-bgcolor rounded">
 
             <?php
+
             $comments = $post->showComments(htmlspecialchars($_GET["id"]));
             if (!empty($comments)) {
                 $stmt = $mysql->query("SELECT username FROM account WHERE account_id = " . $comments[0]['account_id'] . ";");
