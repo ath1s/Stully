@@ -39,12 +39,24 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
             }
 
         $accountid = $post->getAccountId($_SESSION['username']);
-            if ($accountid == $postaccountid || $post->getAccountRole($_SESSION['username']) == 'admin') {
+            if ($accountid == $postaccountid
+//                voor wanneer roles worden gebruikt
+//                || $post->getAccountRole($_SESSION['username']) == 'admin'
+            ) {
                 echo "
                 <form action='../php/delete.php' method='post'>
                     <input type='hidden' name='accountid' value='" . $accountid . "'>
                     <input type='hidden' name='postid' value='" . $postid . "'>
                     <input type='submit' name='delete' value='delete'>
+                </form>
+                
+                <form action='../php/edit.php' method='post'>
+                    <input type='text' name='title' placeholder='Verander je titel' value='" . $show[0]["title"] . "'>
+                    <input type='text' name='code' placeholder='verander je code' value='" . $show[0]["code"] . "'>
+                    <input type='text' name='subtext' placeholder='verander je beschrijving' value='" . $show[0]["subtext"] . "'>
+                    <input type='hidden' name='accountid' value='" . $accountid . "'>
+                    <input type='hidden' name='postid' value='" . $postid . "'>
+                    <input type='submit' name='edit' value='edit'>
                 </form>";
             }
 
