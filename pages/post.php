@@ -79,7 +79,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
         </div>
         </div>
     </div>
-    <main class="container-fluid rounded main-bgcolor mh-100 pt-3">
+    <main class="container-fluid rounded main-bgcolor mh-100 pt-3 pb-3">
 
         <?php
             require_once('../classes/Post.php');
@@ -87,14 +87,6 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
             $post = new Post();
             if(count($post->showPost(htmlspecialchars($_GET["id"]))) > 0){
                 $show = $post->showPost(htmlspecialchars($_GET["id"]));
-                // echo "<table style='border:1px solid black'>";
-                // echo "<tr><th style='font-size:30px;background-color:lightblue;'>" . $show[0]["title"] . "</th></tr>";
-                // echo "<tr><td style='font-size:15px;'>" . $row["username"] . "</td></tr>";
-                // echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["code"] . "</td></tr>";
-                // echo "<tr><td style='font-size:20px;'>" . $show[0]["subtext"] . "</td></tr>";
-                // echo "<tr><td style='font-size:20px;background-color:lightblue;'>" . $show[0]["timestamp"] . "</td></tr>";
-                // echo "</table><br>";
-
                 echo '<div class="card w-75 m-3 shadow-sm" style="background: white; opacity: none;">';
                 echo '<div class="card-header">';
                 echo '<h4 class="card-title">' . $show[0]["title"] . '</h4>';
@@ -103,7 +95,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                 echo '<div class="card-body">';
                 echo '<p class="card-text"><strong>Probleem: </strong>' . $show[0]["code"] . '</p>';
                 echo '<p class="card-text"><strong>Beschrijving: </strong>' . $show[0]["subtext"] . '</p>';
-                echo '<p class="card-text">' . $show[0]["timestamp"] . '</p>';
+                echo '<p class="card-text text-info">' . $show[0]["timestamp"] . '</p>';
                 echo '</div>';
                 echo '</div>';
             }
@@ -126,19 +118,6 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                 $stmt = $mysql->query("SELECT username FROM account WHERE account_id = " . $comments[0]['account_id'] . ";");
                 $commentaccount = $stmt->fetch_array(MYSQLI_ASSOC)["username"];
                 foreach ($comments as $comment) {
-                    // echo "<table style='border:1px solid black'>";
-                    // echo "<tr><td style='background-color:lightblue;'>" . $comment["comment"] . "</td></tr>";
-                    // echo "<tr><td>" . $commentaccount . "</td></tr>";
-                    // echo "<tr><td style='background-color:lightblue;'>" . $comment["punten"] . "</td></tr>";
-                    // echo"<tr><td>
-                    // <form action='../php/vote.php' method='post'>
-                    // <input type='hidden' name='post_id' value='" . $_GET["id"] . "'>
-                    // <input type='hidden' name='id' value='" . $comment["comment_id"] . "'>
-                    // <input type='hidden' name='vote' value='upvote'>
-                    // <input type='submit' value='upvote'>
-                    // </form></tr></td>";
-                    // echo "</table><br>";
-
                     echo '<div class="card w-50 m-3 shadow-sm" style="background: white; opacity: none;">';
                     echo '<div class="card-header">';
                     echo '<h5 class="card-title m-n1">' . $commentaccount . '</h5>';
@@ -157,7 +136,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                     echo '</div>';
                 }
             } else {
-                echo '<div class="card-body pt-3 pl-3 pr-3 pb-2"><h4>Maak de eerste comment!</h4></div>';
+                echo '<div class="card-body p-3"><h4>Maak de eerste comment!</h4></div>';
             }
         ?>
         </div>
