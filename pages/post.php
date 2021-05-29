@@ -141,7 +141,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
                 echo '<p class="card-text">' . $show[0]["timestamp"] . '</p>';
                 echo '</div>';
                 echo '</div>';
-            }
+            
 
             ?> 
 
