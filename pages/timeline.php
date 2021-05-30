@@ -34,9 +34,25 @@ if($_SESSION["loggedin"] != true){
             Post
         </button>
         
-        <button type="button" onclick="window.location.href = 'status.php'" class="btn btn-primary float-right m-2 shadow-sm">
-            Video call
-        </button>
+        <?php
+            require_once("../classes/Account.php");
+
+            $account = new Account();
+
+            if ($account->getStatus($_SESSION["username"]) == 'available') {
+                ?>
+                    <button type="button" onclick="window.location.href = 'status.php'" class="btn btn-primary float-right m-2 shadow-sm">
+                        Video call
+                    </button>
+                <?php
+            } else {
+                ?>
+                    <button type="button" onclick="alert('Verander je status naar available om een call te maken!')" class="btn btn-disabled float-right m-2 shadow-sm">
+                        Video call
+                    </button>
+                <?php
+            }
+        ?>
     </nav>
 
     <!-- Post Modal -->

@@ -47,10 +47,6 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
         <button class="btn btn-secondary float-left m-2 shadow-sm" onclick="window.location.href = 'timeline.php'">
             Terug
         </button>
-        
-        <button type="button" onclick="window.location.href = 'status.php'" class="btn btn-primary float-right m-2 shadow-sm">
-            Video call
-        </button>
     </nav>
 
     <!-- Delete Modal -->
