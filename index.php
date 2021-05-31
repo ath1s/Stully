@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION["loggedin"] = true){
+if($_SESSION["loggedin"] == true){
     header("Location:pages/timeline.php");
 }
 ?>
