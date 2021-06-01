@@ -1,3 +1,9 @@
+<?php
+session_start();
+if($_SESSION["loggedin"] == true){
+    header("Location:pages/timeline.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>

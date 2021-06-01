@@ -96,8 +96,8 @@ class Post
 
     public function addComment($comment, $username, $id) {
         $accountid = $this->getAccountId($username);
-        $stmt = $this->mysqli->prepare("INSERT INTO comments (comment, punten, post_id, account_id) VALUES (?, 0, ?, ?)");
-        $stmt->bind_param("sii", $comment, $id, $accountid);
+        $stmt = $this->mysqli->prepare("INSERT INTO comments (comment, punten, post_id, account_id) VALUES (?, 1, ?, ?)");
+        $stmt->bind_param("sii",$comment, $id, $accountid);
         if($stmt->execute()){
 //            Moet nog kijken hoeveel punten je krijgt
             $this->updatePoints($username, 1);

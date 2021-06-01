@@ -12,12 +12,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username = $converted["username"];
         $post_id = $converted["post_id"];
         if($post->addComment($comment,$username,$post_id) == true){
-            header("refresh:0;url=post.php?id=$post_id");
+            header("Location: post.php?id=" . $post_id);
         }else{
             var_dump($post);
         }
     }else{
-        header("Location:post.php?id=" . $_POST["post_id"] . "");
+        header("Location: post.php?id=" . $_POST["post_id"] . "");
     }
 }
 ?>
