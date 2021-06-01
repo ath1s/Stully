@@ -1,0 +1,18 @@
+/* Hide standard profile placement */
+@media (max-width: 1270px) {
+    .profile-but {
+        display: none;
+        background-color: red;
+    }
+
+    .nav-bgcolor {
+        background: red;
+    }
+}
+
+/* Hide standard hamburger menu */
+@media (min-width: 1270px) {
+    .profile-but {
+        display: none;
+    }
+}

@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+}
+
+/* Hide standard profile placement */
+@media (max-width: 1270px) {
+  .profile-but {
+    display: none;
+    background-color: red;
+  }
+
+  .nav-bgcolor {
+    background: red;
+  }
+}
+/* Hide standard hamburger menu */
+@media (min-width: 1270px) {
+  .profile-but {
+    display: none;
+  }
+}
+body {
+  background: url(../../assets/background.jpeg) no-repeat center center fixed;
+  background-size: cover;
+  overflow-y: hidden;
+}
+
+.main-section {
+  margin: 0 auto;
+  margin-top: 130px;
+  padding: 0;
+}
+
+.modal-content {
+  background-color: #fff;
+  opacity: 0.8;
+  padding: 0 18px;
+  border-radius: 10px;
+}
+
+.headtext {
+  padding: 5px 0 25px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group input {
+  height: 42px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.form-input[type=submit] {
+  width: 40%;
+  margin: 5px 0 25px;
+}
+
+.btn-success {
+  background-color: #1c6288;
+  font-size: 19px;
+  border-radius: 5px;
+  padding: 7px 14px;
+  border: 1px solid #daf1ff;
+}
+
+.btn-success:hover {
+  background-color: #13445e;
+  border: 1px solid #daf1ff;
+}
+
+.btn-secondary {
+  background-color: #222f3e;
+}
+
+.btn-outline-secondary {
+  color: #222f3e;
+}
+
+.register {
+  padding: 5px 0 25px;
+}
+
+.register a {
+  color: #13445e;
+}
+
+.scroll-post {
+  height: 93vh;
+  overflow-y: scroll;
+}
+
+.main-bgcolor {
+  background-color: #fff;
+  opacity: 75%;
+}
+
+.nav-bgcolor {
+  background-color: #c8d6e5;
+  opacity: 75%;
+}
+
+.modal-post {
+  border-radius: 9px;
+  background-color: #fff;
+  opacity: none;
+}/*# sourceMappingURL=main.css.map */

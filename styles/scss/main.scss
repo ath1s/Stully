@@ -1,5 +1,8 @@
+@import 'config';
+@import 'timeline';
+
 body {
-    background: url(../assets/background.jpeg) no-repeat center center fixed;
+    background: url(../../assets/background.jpeg) no-repeat center center fixed;
     background-size: cover;
     overflow-y: hidden;
 }
@@ -11,7 +14,7 @@ body {
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: $background-color;
     opacity: .8;
     padding: 0 18px;
     border-radius: 10px;
@@ -37,24 +40,24 @@ body {
 }
 
 .btn-success {
-    background-color: #1c6288;
+    background-color: $btn-bgcolor;
     font-size: 19px;
     border-radius: 5px;
     padding: 7px 14px;
-    border: 1px solid #daf1ff;
+    border: 1px solid $btn-border;
 }
 
 .btn-success:hover {
-    background-color: #13445e;
-    border: 1px solid #daf1ff;
+    background-color: $btn-bgcolor-hover;
+    border: 1px solid $btn-border;
 }
 
 .btn-secondary {
-    background-color: #222f3e;
+    background-color: $btn-sec;
 }
 
 .btn-outline-secondary {
-    color: #222f3e;
+    color: $btn-sec;
 }
 
 .register {
@@ -62,7 +65,7 @@ body {
 }
 
 .register a {
-    color: #13445e;
+    color: $register;
 }
 
 .scroll-post {
@@ -71,17 +74,17 @@ body {
 }
 
 .main-bgcolor {
-    background-color: white;
+    background-color: $background-color;
     opacity: 75%;
 }
 
 .nav-bgcolor {
-    background-color: #c8d6e5;
+    background-color: $nav-bgcolor;
     opacity: 75%;
 }
 
 .modal-post {
     border-radius: 9px;
-    background-color: white;
+    background-color: $background-color;
     opacity: none;
 }

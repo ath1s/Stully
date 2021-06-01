@@ -33,7 +33,7 @@ $row = $result->fetch_array(MYSQLI_ASSOC);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/esm/popper-utils.js"></script>
     <script src="https://use.fontawesome.com/390a5dcccb.js"></script>
-    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../dist/css/main.css">
     <link rel="stylesheet" href="../styles/post.css">
 </head>
 <body>

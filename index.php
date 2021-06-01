@@ -14,7 +14,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/esm/popper-utils.js"></script>
     <script src="https://use.fontawesome.com/390a5dcccb.js"></script>
-    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="dist/css/main.css">
 </head>
 <body>
     <div class="modal-dialog text-center">

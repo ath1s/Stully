@@ -19,7 +19,7 @@ if($_SESSION["loggedin"] != true){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/esm/popper-utils.js"></script>
     <script src="https://use.fontawesome.com/390a5dcccb.js"></script>
-    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../dist/css/main.css">
 </head>
 <body>
     <nav class="clearfix border nav-bgcolor">
@@ -76,8 +76,11 @@ if($_SESSION["loggedin"] != true){
 
     <main class="container-fluid rounded main-bgcolor mh-100 pt-3">
         <div class="row">
-            <div class="col-sm-auto">
-                <aside class="container rounded border shadow-sm">
+            <div class="col-m-2 border">
+                <button class="profile-but navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenuProfile">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <aside class="navbar-collapse container rounded border shadow-sm" id="navbarMenuProfile">
                     <div class="row pt-3 pl-1 pr-3">
                         <img class="col rounded-circle" style="height: 150px; width: 150px;" src="../assets/img/profile-placeholder.png" alt="Profile picture">
                     </div>
@@ -100,8 +103,8 @@ if($_SESSION["loggedin"] != true){
                     </div>
                 </aside>
             </div>
-            <div class="col-lg-10">
-                <div class="container post-bgcolor rounded mx-auto scroll-post">
+            <div class="col-lg-10 border">
+                <div class="container rounded scroll-post">
                     <?php
                         require_once('../classes/Post.php');
 
