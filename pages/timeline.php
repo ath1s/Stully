@@ -150,6 +150,9 @@ if($_SESSION["loggedin"] != true){
                                 echo '</div>';
                                 echo '</div>';
                         }
+                    } else {
+                        echo '<h3>Op dit moment zijn er nog geen posts.</h3>';
+                        echo '<p class="text-muted">Start een converstatie door er een aan te maken.</p>';
                     }
                     ?>
                 </div>
