@@ -20,6 +20,8 @@ if($_SESSION["loggedin"] != true){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/esm/popper-utils.js"></script>
     <script src="https://use.fontawesome.com/390a5dcccb.js"></script>
     <link rel="stylesheet" href="../dist/css/main.css">
+    <!-- Google material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <nav class="clearfix border nav-bgcolor">
@@ -92,13 +94,13 @@ if($_SESSION["loggedin"] != true){
 
     <main class="container-fluid rounded main-bgcolor mh-100 pt-3">
         <div class="row">
-            <div class="col-m-2 border">
-                <button class="profile-but navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenuProfile">
-                    <span class="navbar-toggler-icon"></span>
+            <div class="col-m-2 menu-parent">
+                <button class="profile-but navbar-toggler m-2" type="button" data-toggle="collapse" data-target="#navbarMenuProfile">
+                    <i class="material-icons" style="font-size: 2em; color: #222f3e">menu</i>
                 </button>
-                <aside class="navbar-collapse container rounded border shadow-sm" id="navbarMenuProfile">
+                <aside class="mr-2 collapse show nav-menu navbar-collapse container rounded shadow-sm" id="navbarMenuProfile">
                     <div class="row pt-3 pl-1 pr-3">
-                        <img class="col rounded-circle" style="height: 150px; width: 150px;" src="../assets/img/profile-placeholder.png" alt="Profile picture">
+                        <img class="col rounded-circle profile-pic"src="../assets/img/profile-placeholder.png" alt="Profile picture">
                     </div>
                     <div class="row pt-3 pl-1 pr-3">
                         <h4 class="col">Welkom, <?php echo $_SESSION['username'] ?></h4>
@@ -119,7 +121,7 @@ if($_SESSION["loggedin"] != true){
                     </div>
                 </aside>
             </div>
-            <div class="col-lg-10 border">
+            <div class="col-lg-10">
                 <div class="container rounded scroll-post">
                     <?php
                         require_once('../classes/Post.php');
@@ -154,5 +156,16 @@ if($_SESSION["loggedin"] != true){
             </div>
         </div>
     </main>
+
+    <script>
+    // Collapse the menu on load when screen is below 1270px
+        if($(window).width() < 1270) {
+            // change functionality for smaller screens
+            $(".collapse").collapse('hide');
+        } else {
+            // change functionality for larger screens
+            $(".collapse").collapse('show');
+        }
+    </script>
 </body>
 </html>
