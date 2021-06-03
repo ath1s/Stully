@@ -1,3 +1,2 @@
 #!/bin/sh
-docker-compose up & python3 server.py
-
+docker-compose up & node ../coffeecall/server.js
