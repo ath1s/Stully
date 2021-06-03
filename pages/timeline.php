@@ -43,7 +43,7 @@ if($_SESSION["loggedin"] != true){
 
             if ($account->getStatus($_SESSION["username"]) == 'available') {
                 ?>
-                    <button type="button" onclick="window.location.href = 'status.php'" class="btn btn-primary float-right m-2 shadow-sm">
+                    <button type="button" onclick="window.location.href = '../php/status.php'" class="btn btn-primary float-right m-2 shadow-sm">
                         Video call
                     </button>
                 <?php
@@ -98,7 +98,7 @@ if($_SESSION["loggedin"] != true){
                 <button class="profile-but navbar-toggler m-2" type="button" data-toggle="collapse" data-target="#navbarMenuProfile">
                     <i class="material-icons" style="font-size: 2em; color: #222f3e">menu</i>
                 </button>
-                <aside class="mr-2 collapse show nav-menu navbar-collapse container rounded shadow-sm" id="navbarMenuProfile">
+                <aside class="mb-3 collapse show nav-menu navbar-collapse container rounded shadow-sm" id="navbarMenuProfile">
                     <div class="row pt-3 pl-1 pr-3">
                         <img class="col rounded-circle profile-pic"src="../assets/img/profile-placeholder.png" alt="Profile picture">
                     </div>
