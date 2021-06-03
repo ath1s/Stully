@@ -15,9 +15,9 @@ if($_SESSION["loggedin"] != true){
         src="https://code.jquery.com/jquery-3.6.0.js"
         >
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/esm/popper-utils.js"></script>
     <script src="https://use.fontawesome.com/390a5dcccb.js"></script>
     <link rel="stylesheet" href="../dist/css/main.css">
     <!-- Google material icons -->
@@ -103,7 +103,17 @@ if($_SESSION["loggedin"] != true){
                         <img class="col rounded-circle profile-pic"src="../assets/img/profile-placeholder.png" alt="Profile picture">
                     </div>
                     <div class="row pt-3 pl-1 pr-3">
+                        <div class="dropdown">
                         <h4 class="col">Welkom, <?php echo $_SESSION['username'] ?></h4>
+                        <button type="button" class="badge badge-success dropdown-toggle ml-3 p-2" style="border: none;" data-toggle="dropdown">
+                            <?php echo $account->getStatus($_SESSION["username"]); ?>
+                        </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="../php/change_status.php?status=online">Online</a>
+                                <a class="dropdown-item" href="../php/change_status.php?status=available">Available</a>
+                                <a class="dropdown-item" href="../php/change_status.php?status=offline">Offline</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="row pt-3 pl-3 pr-3">
                         <ul class="col list-group">
