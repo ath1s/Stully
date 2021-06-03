@@ -6,9 +6,9 @@ if($_SESSION["loggedin"] == true){
     if($status->getStatus($_SESSION["username"]) == "oncall" || $status->getStatus($_SESSION["username"]) == "available"){
         $status->changeStatus($_SESSION["username"], "online");
         $status->changeStatus($_SESSION["username2"], "online");
-        header("location:../pages/status.php");
+        header("location:../pages/timeline.php");
     }else{
-        header("Location:../pages/status.php");
+        header("Location:../pages/timeline.php");
     }
 }else{
     header("location:../index.php");
