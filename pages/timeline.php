@@ -111,7 +111,6 @@ if($_SESSION["loggedin"] != true){
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="../php/change_status.php?status=online">Online</a>
                                 <a class="dropdown-item" href="../php/change_status.php?status=available">Available</a>
-                                <a class="dropdown-item" href="../php/change_status.php?status=offline">Offline</a>
                             </div>
                         </div>
                     </div>
