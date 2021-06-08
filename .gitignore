@@ -1,0 +1,8 @@
+.idea
+.DS_Store
+server/db/
+server/db/*
+server/mysql-dump/
+node_modules/
+node_module/*
+package-lock.json
